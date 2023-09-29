@@ -3,15 +3,18 @@ package ru.hogwarts.school.service;
 import ru.hogwarts.school.model.Student;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StudentServiceInter {
     Student createStudent(Student student);
 
-    List<Student> getStudentByAge(int age);
 
-    Student findStudent(Long id);
+
+    Optional<Student> findStudent(Long id);
+
+    List<Student> findByAge(int age);
 
     Student editStudent(Student student);
 
-    Student deleteStudent(Long id);
+    void deleteStudent(Long id);
 }
