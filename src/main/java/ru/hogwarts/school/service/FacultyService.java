@@ -1,20 +1,21 @@
 package ru.hogwarts.school.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class FacultyService implements FacultyServiceInter{
 
     private final FacultyRepository facultyRepository;
+    private final StudentService studentService;
 
-    public FacultyService(FacultyRepository facultyRepository) {
+    public FacultyService(FacultyRepository facultyRepository, StudentService studentService) {
         this.facultyRepository = facultyRepository;
+        this.studentService = studentService;
     }
 
     @Override
@@ -25,6 +26,20 @@ public class FacultyService implements FacultyServiceInter{
     @Override
     public List<Faculty>getFacultyByColor(String color){
         return facultyRepository.getAllByColor(color);
+
+    }
+    @Override
+    public Set<Faculty>getFacultyByColorOrByName(String param){
+        Set<Faculty> result = new HashSet<>();
+        result.addAll(facultyRepository.getAllByColorIgnoreCase(param));
+        result.addAll(facultyRepository.getAllByNameIgnoreCase(param));
+        return result;
+
+
+    }
+    @Override
+    public List<Student> getStudentByFacultyId(Long id){
+        return studentService.getByFacultyId(id);
 
     }
     @Override

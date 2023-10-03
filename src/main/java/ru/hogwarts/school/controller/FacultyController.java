@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("faculty")
@@ -28,11 +26,20 @@ public class FacultyController {
         }
         return ResponseEntity.ok(faculty.get());
     }
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<Faculty>>getFacultyByColorInfo(@RequestParam ("color")
                                                                     String color) {
             return ResponseEntity.ok(facultyService.getFacultyByColor(color));
     }
+    @GetMapping("/get-color-or-name")
+    public ResponseEntity<Set<Faculty>> getFacultyByColorOrName(@RequestParam("str") String str){
+        return ResponseEntity.ok( facultyService.getFacultyByColorOrByName(str));
+    }
+    @GetMapping("/get-faculty-by-student-id")
+    public ResponseEntity<List<Student> >getStudentByFacultyId(@RequestParam("id") Long id){
+        return ResponseEntity.ok(facultyService.getStudentByFacultyId(id));
+    }
+
     @PostMapping
     public Faculty createFaculty(@RequestBody Faculty faculty){
         return facultyService.createFaculty(faculty);

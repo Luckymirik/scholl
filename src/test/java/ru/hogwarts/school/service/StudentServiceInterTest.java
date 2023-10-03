@@ -14,7 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class StudentServiceInterTest {
@@ -43,6 +44,21 @@ class StudentServiceInterTest {
         var actual = studentService.findByAge(15);
         Assertions.assertEquals(expected,actual);
     }
+    @Test
+    void findByAgeBetween(){
+        List<Student> expeсted = new ArrayList<>(List.of((new Student(2L,"Гойл",12)),
+                (new Student(3L,"Рон",13))));
+        when(studentRepository.findAllByAgeBetween(11,13))
+                .thenReturn(new ArrayList<>(List.of((new Student(2L,"Гойл",12)),
+                        (new Student(3L,"Рон",13)))));
+        studentService.createStudent(new Student(1L,"Гарри",14));
+        studentService.createStudent(new Student(2L,"Гойл",12));
+        studentService.createStudent(new Student(3L,"Рон",13));
+        var actual = studentService.findByAgeBetween(11,13);
+        assertEquals(expeсted,actual);
+
+
+    }
 
     @Test
     void findStudent() {
@@ -63,6 +79,15 @@ class StudentServiceInterTest {
                 .thenReturn(studentTest);
         var actual = studentService.editStudent(new Student(1L,"Малфой",15));
         Assertions.assertEquals(expected,actual);
+    }
+    @Test
+    void deleteStudent(){
+        var studentTest2 = new Student(2L,"Рон",15);
+        lenient().when(studentRepository.findById(2L)).thenReturn(Optional.of(studentTest2));
+        studentService.deleteStudent(2L);
+        verify(studentRepository,times(1)).deleteById(2L);
+
+
     }
 
 
