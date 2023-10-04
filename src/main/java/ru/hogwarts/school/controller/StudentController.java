@@ -22,11 +22,9 @@ public class StudentController {
     }
     @GetMapping("{id}")
     public ResponseEntity<Student> getStudentInfo(@PathVariable Long id){
-        Optional <Student> student= studentService.findStudent(id);
-        if (student.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(student.get());
+        Student student= studentService.findStudent(id);
+
+        return ResponseEntity.ok(student);
     }
     @GetMapping
     public ResponseEntity <List<Student>> getStudentByAgeInfo(@RequestParam("age") int age){

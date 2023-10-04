@@ -23,8 +23,8 @@ public class StudentService implements StudentServiceInter{
     }
 
     @Override
-    public Optional<Student> findStudent(Long id){
-        return studentRepository.findById(id);
+    public Student findStudent(Long id){
+        return studentRepository.findById(id).get();
     }
     @Override
     public List<Student> findByAge(int age){

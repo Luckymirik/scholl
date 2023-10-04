@@ -62,7 +62,7 @@ class StudentServiceInterTest {
 
     @Test
     void findStudent() {
-        var expected = Optional.of(new Student(2L,"Рон",15));
+        var expected = new Student(2L,"Рон",15);
         var studentTest2 = new Student(2L,"Рон",15);
         when(studentRepository.findById(2L))
                 .thenReturn(Optional.of(studentTest2));
@@ -87,6 +87,10 @@ class StudentServiceInterTest {
         studentService.deleteStudent(2L);
         verify(studentRepository,times(1)).deleteById(2L);
 
+
+    }
+    @Test
+    void getFacultyByStudentId(){
 
     }
 
