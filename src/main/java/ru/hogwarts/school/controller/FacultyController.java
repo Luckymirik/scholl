@@ -35,7 +35,7 @@ public class FacultyController {
     public ResponseEntity<Set<Faculty>> getFacultyByColorOrName(@RequestParam("str") String str){
         return ResponseEntity.ok( facultyService.getFacultyByColorOrByName(str));
     }
-    @GetMapping("/get-faculty-by-student-id")
+    @GetMapping("/get-student-by-faculty-id")
     public ResponseEntity<List<Student> >getStudentByFacultyId(@RequestParam("id") Long id){
         return ResponseEntity.ok(facultyService.getStudentByFacultyId(id));
     }

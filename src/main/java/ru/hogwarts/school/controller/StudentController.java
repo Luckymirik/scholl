@@ -35,7 +35,7 @@ public class StudentController {
                                                                 @RequestParam("max") int max){
         return ResponseEntity.ok(studentService.findByAgeBetween(min,max));
     }
-    @GetMapping("/faculty-bu-student-id")
+    @GetMapping("/faculty-by-student-id")
     public ResponseEntity<Faculty> getFacultyByStudentId(@RequestParam("id")Long id){
         return ResponseEntity.ok(studentService.getFacultyByStudentId(id));
     }
