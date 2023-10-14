@@ -87,8 +87,8 @@ class SchoolApplicationTests {
 				"[{\"id\":1,\"name\":\"Гриффиндор\",\"color\":\"Красный\",\"studentList\":[]}]");
 	}
 	@Test
-	public void testGetFacultyInfoByStudentId() throws Exception {
-		Assertions.assertEquals(this.restTemplate.getForObject("http://localhost:" + port + "/faculty/get-faculty-by-student-id?id=2", String.class),
+	public void testGetStudentInfoByFacultyIdId() throws Exception {
+		Assertions.assertEquals(this.restTemplate.getForObject("http://localhost:" + port + "/faculty/get-student-by-faculty-id?id=2", String.class),
 				"[{\"id\":4,\"name\":\"Джеймс Сириус Поттер\",\"age\":3,\"faculty\":{\"id\":2,\"name\":\"Слизерин\",\"color\":\"Зеленый\",\"studentList\":[]}}]");
 	}
 	@Test
