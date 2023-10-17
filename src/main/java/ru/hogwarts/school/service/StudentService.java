@@ -55,4 +55,15 @@ public class StudentService implements StudentServiceInter{
     }
 
 
+    public int getAmountStudents() {
+        return studentRepository.amountStudents();
+    }
+    public int getAverageAge() {
+        return studentRepository.averageAge();
+    }
+
+    public List<Student> getLastFiveStudents() {
+        return studentRepository.lastFive();
+    }
+
 }
