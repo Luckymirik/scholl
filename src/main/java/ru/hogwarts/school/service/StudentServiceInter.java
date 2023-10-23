@@ -18,6 +18,8 @@ public interface StudentServiceInter {
 
     public Faculty getFacultyByStudentId(Long id);
 
+    List<Student> getStudentsByName(String name);
+
     List<Student> getByFacultyId(Long facultyId);
 
     Student editStudent(Student student);

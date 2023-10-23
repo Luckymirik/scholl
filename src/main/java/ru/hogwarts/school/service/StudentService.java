@@ -38,6 +38,10 @@ public class StudentService implements StudentServiceInter{
     public Faculty getFacultyByStudentId(Long id) {
         return studentRepository.findById(id).get().getFaculty();
     }
+    @Override
+    public List<Student> getStudentsByName(String name){
+        return studentRepository.getStudentsByName(name);
+    }
 
     @Override
     public List<Student> getByFacultyId(Long facultyId) {
