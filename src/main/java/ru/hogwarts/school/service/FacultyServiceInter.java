@@ -17,6 +17,8 @@ public interface FacultyServiceInter {
 
     List<Student> getStudentByFacultyId(Long id);
 
+    String getLongestFacultyName();
+
     Optional<Faculty> findFaculty(Long id);
 
     Faculty editFaculty(Faculty faculty);

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Stream;
+
 @Service
 @Profile("!production")
 public class InfoServiceTest implements InfoServiceInt {
@@ -21,5 +23,6 @@ public class InfoServiceTest implements InfoServiceInt {
         logger.debug("Found test port");
         return port;
     }
+
 
 }

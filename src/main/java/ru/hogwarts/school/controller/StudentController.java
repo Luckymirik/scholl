@@ -44,6 +44,14 @@ public class StudentController {
     public ResponseEntity<Faculty> getFacultyByStudentId(@RequestParam("id")Long id){
         return ResponseEntity.ok(studentService.getFacultyByStudentId(id));
     }
+    @GetMapping("/starts-a")
+    public Collection<String> getStudentsNameStartsA(){
+        return studentService.getStudentsNames();
+    }
+    @GetMapping("/average")
+    public double getStudentsAverageAge(){
+        return studentService.getStudentsAverageAge();
+    }
     @PostMapping
     public Student createStudent(@RequestBody Student student){
         return studentService.createStudent(student);

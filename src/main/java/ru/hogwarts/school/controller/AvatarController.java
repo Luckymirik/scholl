@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("avatar")
@@ -34,6 +35,16 @@ public class AvatarController {
         avatarService.uploadAvatar(id,avatar);
         return ResponseEntity.ok().build();
     }
+    @GetMapping("/number")
+    public int getNumber(){
+            int sum = Stream.iterate(1, a -> a +1)
+                    .parallel()
+                    .limit(1_000_000) .reduce(0, Integer::sum);
+            return sum;
+        }
+
+
+
     @GetMapping(value = "/{id}/avatar/data")
     public ResponseEntity<byte[]> downloadAvatar(@PathVariable Long id){
         Avatar avatar = avatarService.findAvatar(id);

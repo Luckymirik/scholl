@@ -50,6 +50,13 @@ public class FacultyService implements FacultyServiceInter{
 
     }
     @Override
+    public String getLongestFacultyName(){
+        return facultyRepository.findAll()
+                .stream().map(Faculty::getName)
+                .max(Comparator.comparing(String::length))
+                .get();
+    }
+    @Override
     public Optional<Faculty> findFaculty(Long id){
         logger.debug("Found faculty by id");
 

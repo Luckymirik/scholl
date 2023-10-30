@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -58,6 +59,22 @@ public class StudentService implements StudentServiceInter{
     public List<Student> getStudentsByName(String name){
         logger.debug("Found students by name");
         return studentRepository.getStudentsByName(name);
+    }
+    @Override
+    public Collection<String> getStudentsNames(){
+        return studentRepository.findAll().stream()
+                .map(e->e.getName().toUpperCase())
+                .filter(name->name.startsWith("А"))
+                .sorted()
+                .collect(Collectors.toList());
+
+    }
+    @Override
+    public double getStudentsAverageAge(){
+        return studentRepository.findAll().stream()
+                .mapToDouble(Student::getAge)
+                .average().orElse(0);
+
     }
 
     @Override

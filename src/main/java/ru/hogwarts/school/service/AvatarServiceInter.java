@@ -14,4 +14,6 @@ public interface AvatarServiceInter {
     Avatar findAvatar(Long studentId);
 
     String getExtension(String fileName);
+
+    int getNumber();
 }
