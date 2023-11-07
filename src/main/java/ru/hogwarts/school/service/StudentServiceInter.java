@@ -26,6 +26,14 @@ public interface StudentServiceInter {
 
     double getStudentsAverageAge();
 
+    void namesUsingMultithreading();
+
+    void printStudentSync();
+
+    void printStudent(Student student);
+
+    void printStudentSync(Student student);
+
     List<Student> getByFacultyId(Long facultyId);
 
     Student editStudent(Student student);

@@ -52,6 +52,14 @@ public class StudentController {
     public double getStudentsAverageAge(){
         return studentService.getStudentsAverageAge();
     }
+    @GetMapping("/thread")
+    public void namesUsingMultithreading(){
+        studentService.namesUsingMultithreading();
+    }
+    @GetMapping("/thread-sync")
+    public void namesUsingMultithreadingSync(){
+        studentService.printStudentSync();
+    }
     @PostMapping
     public Student createStudent(@RequestBody Student student){
         return studentService.createStudent(student);

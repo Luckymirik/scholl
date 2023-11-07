@@ -20,6 +20,7 @@ public class StudentService implements StudentServiceInter{
     private final StudentRepository studentRepository;
 
     private final Logger logger = LoggerFactory.getLogger(StudentService.class);
+    private Object lock = new Object();
 
 
 
@@ -76,7 +77,51 @@ public class StudentService implements StudentServiceInter{
                 .average().orElse(0);
 
     }
+    @Override
+    public void namesUsingMultithreading(){
+        List <Student> students = studentRepository.findAll();
+        printStudent(students.get(0));
+        printStudent(students.get(1));
+        Thread thread1 = new Thread(()->{
+            printStudent(students.get(2));
+            printStudent(students.get(3));
+        });
+        thread1.start();
+        Thread thread2 = new Thread(()->{
+            printStudent(students.get(4));
+            printStudent(students.get(5));
+        });
+        thread2.start();
+        System.out.println();
 
+    }
+    @Override
+    public void printStudentSync(){
+        List<Student> students = studentRepository.findAll();
+        printStudentSync(students.get(0));
+        printStudentSync(students.get(1));
+        Thread thread1 = new Thread(()->{
+            printStudentSync(students.get(2));
+            printStudentSync(students.get(3));
+        });
+        thread1.start();
+
+        Thread thread2 = new Thread(()->{
+            printStudentSync(students.get(4));
+            printStudentSync(students.get(5));
+        });
+        thread2.start();
+
+        System.out.println();
+    }
+    @Override
+    public void printStudent(Student student){
+        System.out.println(Thread.currentThread().getName() + " " + student.getName());
+    }
+    @Override
+    public synchronized void printStudentSync(Student student){
+        printStudent(student);
+    }
     @Override
     public List<Student> getByFacultyId(Long facultyId) {
         logger.debug("Found students by faculty id");
