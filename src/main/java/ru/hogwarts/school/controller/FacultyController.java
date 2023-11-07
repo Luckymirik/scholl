@@ -4,11 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("faculty")
@@ -21,17 +20,30 @@ public class FacultyController {
     }
     @GetMapping("{id}")
     public ResponseEntity<Faculty> getFacultyInfo(@PathVariable Long id){
-        Faculty faculty = facultyService.findFaculty(id);
-        if (faculty == null){
+        Optional<Faculty> faculty = facultyService.findFaculty(id);
+        if (faculty.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(faculty);
+        return ResponseEntity.ok(faculty.get());
     }
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<Faculty>>getFacultyByColorInfo(@RequestParam ("color")
                                                                     String color) {
             return ResponseEntity.ok(facultyService.getFacultyByColor(color));
     }
+    @GetMapping("/get-color-or-name")
+    public ResponseEntity<Set<Faculty>> getFacultyByColorOrName(@RequestParam("str") String str){
+        return ResponseEntity.ok( facultyService.getFacultyByColorOrByName(str));
+    }
+    @GetMapping("/get-student-by-faculty-id")
+    public ResponseEntity<List<Student> >getStudentByFacultyId(@RequestParam("id") Long id){
+        return ResponseEntity.ok(facultyService.getStudentByFacultyId(id));
+    }
+    @GetMapping("longest-name")
+    public String getLongestFacultyName(){
+        return facultyService.getLongestFacultyName();
+    }
+
     @PostMapping
     public Faculty createFaculty(@RequestBody Faculty faculty){
         return facultyService.createFaculty(faculty);
@@ -45,8 +57,9 @@ public class FacultyController {
         return ResponseEntity.ok(foundFaculty);
     }
     @DeleteMapping("{id}")
-    public Faculty deleteFaculty(@PathVariable Long id){
-        return facultyService.deleteFaculty(id);
+    public ResponseEntity deleteFaculty(@PathVariable Long id){
+        facultyService.deleteFaculty(id);
+        return ResponseEntity.ok().build();
     }
 
 }

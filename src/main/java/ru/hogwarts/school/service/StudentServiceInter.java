@@ -1,17 +1,42 @@
 package ru.hogwarts.school.service;
 
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public interface StudentServiceInter {
     Student createStudent(Student student);
 
-    List<Student> getStudentByAge(int age);
+
 
     Student findStudent(Long id);
 
+    List<Student> findByAge(int age);
+
+    List<Student> findByAgeBetween(int min, int max);
+
+    public Faculty getFacultyByStudentId(Long id);
+
+    List<Student> getStudentsByName(String name);
+
+    Collection<String> getStudentsNames();
+
+    double getStudentsAverageAge();
+
+    void namesUsingMultithreading();
+
+    void printStudentSync();
+
+    void printStudent(Student student);
+
+    void printStudentSync(Student student);
+
+    List<Student> getByFacultyId(Long facultyId);
+
     Student editStudent(Student student);
 
-    Student deleteStudent(Long id);
+    void deleteStudent(Long id);
 }
